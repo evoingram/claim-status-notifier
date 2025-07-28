@@ -1,9 +1,10 @@
 # Claim Status Notifier
 
 ## Project Overview
-Claim Status Notifier is a lightweight C#/.NET 8 micro-service (plus an optional Angular front-end) that automates the “Where’s my claim?” status checks now done by hand.
 
-**Back-end** – ASP.NET Core Minimal API that reads claim data from SQLite (or SQL Server), exposes REST endpoints, and—on demand or on a schedule—builds a concise status digest.
+Claim Status Notifier is a lightweight C#/.NET 8 micro-service plus an optional Angular front-end that automates the “Where’s my claim?” status checks now done by hand.  First-time users can run the CLI importer to seed the database
+
+**Back-end** – ASP.NET Core Minimal API that reads claim data from SQLite or SQL Server, exposes REST endpoints, and—on demand or on a schedule—builds a concise status digest.
 
 **Front-end** – tiny Angular 17 SPA that lets users search a claim, view current status, and trigger an e-mail digest.
 
@@ -23,7 +24,7 @@ Claim Status Notifier is a lightweight C#/.NET 8 micro-service (plus an optional
 
 
 ## Tech Stack
-| **Layer**     | **Tech**                                     |
+| **Layer**     | **Tech**                                      |
 |---------------|-----------------------------------------------|
 | API           | .NET 8 • ASP.NET Core Minimal API             |
 | Data          | SQLite • EF Core (Dapper optional)            |
@@ -112,7 +113,4 @@ az webapp create -g csn-rg -p csn-plan -n csn-prod --deployment-container-image-
 - Integrate OpenTelemetry tracing (API + Angular) and export to OTLP collector.
 
 ---
-© 2025 Erica Ingram – MIT License.
-
-
-
+  © 2025 Erica Ingram – MIT License.
