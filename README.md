@@ -1,0 +1,206 @@
+# Claim Status Notifier
+
+
+
+## Project Overview
+
+
+
+Claim Status Notifier is a lightweight C#/.NET 8 micro-service (plus an optional Angular front-end) that automates the “Where’s my claim?” status checks now done by hand.
+
+
+
+**Back-end** – ASP.NET Core Minimal API that reads claim data from SQLite (or SQL Server), exposes REST endpoints, and—on demand or on a schedule—builds a concise status digest.
+
+
+
+**Front-end** – tiny Angular 17 SPA that lets users search a claim, view current status, and trigger an e-mail digest.
+
+
+
+**Use case** – Upload a CSV of ClaimID,CustomerEmail,LastUpdated, store it, and let the service poll for updates or send a batch summary.
+
+
+
+## Key Features
+
+
+
+- REST API (GET /claim/{id}, POST /notify) with async/await & LINQ  
+
+- CSV → DB import (EF Core) and easy switch to SQL Server  
+
+- E-mail digest stub (logs formatted body; swap in SMTP later)  
+
+- Docker-first: single docker compose up spins API + DB  
+
+- GitHub Actions CI: build, test, and push container image  
+
+- Angular UI: search box, colour-coded status chip, RxJS polling  
+
+- Tests: xUnit for API, Karma/Jasmine for Angular
+
+
+
+## Tech Stack
+
+
+
+| **Layer**     | **Tech**                                     |
+
+|---------------|-----------------------------------------------|
+
+| API           | .NET 8 • ASP.NET Core Minimal API             |
+
+| Data          | SQLite • EF Core (Dapper optional)            |
+
+| UI (optional) | Angular 17 • RxJS • TypeScript                |
+
+| DevOps        | Docker & docker-compose • GitHub Actions      |
+
+| Cloud         | AWS Elastic Beanstalk or Azure App Service    |
+
+
+
+## Quick Start
+
+
+
+```bash
+
+# clone and run everything
+
+git clone <repo-url>
+
+cd claim-status-notifier
+
+docker compose up --build          # API → :5000  |  Angular → :4200
+
+```
+
+
+
+## Available Scripts
+
+
+
+| **Task**              | **Command / File**                     |
+
+|-----------------------|----------------------------------------|
+
+| Run API only          | `dotnet run --project api/ClaimApi`    |
+
+| Docker up (API + DB)  | `docker compose up -d`                 |
+
+| Unit tests (API)      | `dotnet test`                          |
+
+| Unit tests (Angular)  | `npm run test --prefix web`            |
+
+| Lint Angular          | `npm run lint --prefix web`            |
+
+| Tear down containers  | `docker compose down`                  |
+
+
+
+## API Documentation
+
+
+
+### REST API v1
+
+
+
+| **Endpoint**    | **Verb** | **Purpose**                       |
+
+|-----------------|----------|-----------------------------------|
+
+| `/claim/{id}`   | GET      | Return JSON status for a claim    |
+
+| `/claim`        | GET      | List claims (paging, filter)      |
+
+| `/import/csv`   | POST     | Upload CSV → DB                   |
+
+| `/notify`       | POST     | Generate digest (logs e-mail body)|
+
+| `/health`       | GET      | Liveness probe                    |
+
+
+
+> Swagger docs are auto-generated at `/swagger`.
+
+
+
+## Testing Targets
+
+
+
+| **Layer** | **Framework**     | **Coverage Goal**         |
+
+|----------|-------------------|----------------------------|
+
+| API      | xUnit             | ≥ 80 % lines               |
+
+| Angular  | Karma/Jasmine     | ≥ 80 % stmts               |
+
+
+
+> (Cypress e2e scaffold included; optional.)
+
+
+
+## Cloud Deploy (one-liner cheat sheets)
+
+
+
+```bash
+
+# AWS Elastic Beanstalk
+
+eb init ClaimStatusNotifier -p docker
+
+eb create csn-prod
+
+```
+
+
+
+```bash
+
+# Azure App Service
+
+az group create -n csn-rg -l eastus
+
+az appservice plan create -g csn-rg -n csn-plan --is-linux
+
+az webapp create -g csn-rg -p csn-plan -n csn-prod --deployment-container-image-name <your-image>
+
+```
+
+
+
+> Detailed steps live in `/infra/README-cloud.md`.
+
+
+
+## Roadmap After MVP
+
+
+
+- Swap log-only digest for real SMTP (SES / SendGrid).
+
+- Listen to Claims event bus (Kafka) instead of CSV polling.
+
+- Add JWT auth & user preferences.
+
+- Promote DB to managed PostgreSQL for HA.
+
+
+
+---
+
+
+
+© 2025 Erica Ingram – MIT License.
+
+
+
