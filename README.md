@@ -25,6 +25,8 @@ Claim Status Notifier is a lightweight C#/.NET 8 micro-service (plus an optional
 ## Key Features
 
 
+- Command-line CSV importer: a tiny .NET console tool that ingests your
+  `ClaimID,CustomerEmail,LastUpdated` spreadsheet and seeds the database in seconds
 
 - REST API (GET /claim/{id}, POST /notify) with async/await & LINQ  
 
@@ -35,6 +37,9 @@ Claim Status Notifier is a lightweight C#/.NET 8 micro-service (plus an optional
 - Docker-first: single docker compose up spins API + DB  
 
 - GitHub Actions CI: build, test, and push container image  
+
+- **CLI console parser** – `dotnet run --project tools/ClaimCsvParser claims.csv`  
+  reads a CSV and prints each record (Slice 1 / onboarding utility)
 
 - Angular UI: search box, colour-coded status chip, RxJS polling  
 
@@ -78,14 +83,15 @@ docker compose up --build          # API → :5000  |  Angular → :4200
 
 
 
-| **Task**              | **Command / File**                     |
-|-----------------------|----------------------------------------|
-| Run API only          | `dotnet run --project api/ClaimApi`    |
-| Docker up (API + DB)  | `docker compose up -d`                 |
-| Unit tests (API)      | `dotnet test`                          |
-| Unit tests (Angular)  | `npm run test --prefix web`            |
-| Lint Angular          | `npm run lint --prefix web`            |
-| Tear down containers  | `docker compose down`                  |
+| **Task**              | **Command / File**                                |
+|-----------------------|---------------------------------------------------|
+| Run API only          | `dotnet run --project api/ClaimApi`               |
+| Docker up (API + DB)  | `docker compose up -d`                            |
+| Unit tests (API)      | `dotnet test`                                     |
+| Unit tests (Angular)  | `npm run test --prefix web`                       |
+| Lint Angular          | `npm run lint --prefix web`                       |
+| Tear down containers  | `docker compose down`                             |
+| Console CSV Parser    | `dotnet run --project tools/ClaimCsvParser <csv>` |
 
 
 
@@ -171,6 +177,8 @@ az webapp create -g csn-rg -p csn-plan -n csn-prod --deployment-container-image-
 - Add JWT auth & user preferences.
 
 - Promote DB to managed PostgreSQL for HA.
+
+- Integrate OpenTelemetry tracing (API + Angular) and export to OTLP collector.
 
 
 
