@@ -132,7 +132,7 @@ docker compose up --build          # API → :5000  |  Angular → :4200
 
 
 
-## Cloud Deploy (one-liner cheat sheets)
+## Cloud Deploy
 
 
 
