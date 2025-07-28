@@ -47,17 +47,11 @@ Claim Status Notifier is a lightweight C#/.NET 8 micro-service (plus an optional
 
 
 | **Layer**     | **Tech**                                     |
-
 |---------------|-----------------------------------------------|
-
 | API           | .NET 8 • ASP.NET Core Minimal API             |
-
 | Data          | SQLite • EF Core (Dapper optional)            |
-
 | UI (optional) | Angular 17 • RxJS • TypeScript                |
-
 | DevOps        | Docker & docker-compose • GitHub Actions      |
-
 | Cloud         | AWS Elastic Beanstalk or Azure App Service    |
 
 
@@ -85,19 +79,12 @@ docker compose up --build          # API → :5000  |  Angular → :4200
 
 
 | **Task**              | **Command / File**                     |
-
 |-----------------------|----------------------------------------|
-
 | Run API only          | `dotnet run --project api/ClaimApi`    |
-
 | Docker up (API + DB)  | `docker compose up -d`                 |
-
 | Unit tests (API)      | `dotnet test`                          |
-
 | Unit tests (Angular)  | `npm run test --prefix web`            |
-
 | Lint Angular          | `npm run lint --prefix web`            |
-
 | Tear down containers  | `docker compose down`                  |
 
 
@@ -111,17 +98,11 @@ docker compose up --build          # API → :5000  |  Angular → :4200
 
 
 | **Endpoint**    | **Verb** | **Purpose**                       |
-
 |-----------------|----------|-----------------------------------|
-
 | `/claim/{id}`   | GET      | Return JSON status for a claim    |
-
 | `/claim`        | GET      | List claims (paging, filter)      |
-
 | `/import/csv`   | POST     | Upload CSV → DB                   |
-
 | `/notify`       | POST     | Generate digest (logs e-mail body)|
-
 | `/health`       | GET      | Liveness probe                    |
 
 
@@ -135,11 +116,8 @@ docker compose up --build          # API → :5000  |  Angular → :4200
 
 
 | **Layer** | **Framework**     | **Coverage Goal**         |
-
 |----------|-------------------|----------------------------|
-
 | API      | xUnit             | ≥ 80 % lines               |
-
 | Angular  | Karma/Jasmine     | ≥ 80 % stmts               |
 
 
