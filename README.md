@@ -35,15 +35,18 @@ Claim Status Notifier is a lightweight C#/.NET 8 micro-service plus an optional 
 
 ## Quick Start
 ```bash
-# clone and run everything
-
-git clone <repo-url>
-
+# 1 – clone
+git clone https://github.com/evoingram/claim-status-notifier.git
 cd claim-status-notifier
 
-docker compose up --build          # API → :5000  |  Angular → :4200
+# 2 – seed the DB with your first CSV
+dotnet run --project tools/ClaimCsvParser data/claims.csv
 
-```
+# 3 – build & start everything in detached mode
+docker compose up --build -d       # API → :5000 | Angular → :4200
+
+# 4 – open http://localhost:4200  (UI) or http://localhost:5000/swagger  (API docs)
+
 
 
 ## Available Scripts
