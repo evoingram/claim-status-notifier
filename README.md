@@ -2,8 +2,11 @@
 
 ## Project Overview
 Claim Status Notifier is a lightweight C#/.NET 8 micro-service (plus an optional Angular front-end) that automates the “Where’s my claim?” status checks now done by hand.
+
 **Back-end** – ASP.NET Core Minimal API that reads claim data from SQLite (or SQL Server), exposes REST endpoints, and—on demand or on a schedule—builds a concise status digest.
+
 **Front-end** – tiny Angular 17 SPA that lets users search a claim, view current status, and trigger an e-mail digest.
+
 **Use case** – Upload a CSV of ClaimID,CustomerEmail,LastUpdated, store it, and let the service poll for updates or send a batch summary.
 
 
